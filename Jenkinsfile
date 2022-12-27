@@ -37,10 +37,10 @@ pipeline {
   }
   post{
     success{
-      githubNotify status: "SUCCESS", credentialsId: "143f2d77-e8ba-4fc3-85a9-edef0b717b8a", account: "jenkins", repo: "JenkinsDeploysToTomcatProject"
+      githubNotify status: "SUCCESS", description: "build success", credentialsId: '143f2d77-e8ba-4fc3-85a9-edef0b717b8a', repo: "JenkinsDeploysToTomcatProject"
     }
     failure{
-      githubNotify status: "FAILURE", credentialsId: "143f2d77-e8ba-4fc3-85a9-edef0b717b8a", account: "jenkins", repo: "JenkinsDeploysToTomcatProject"
+      githubNotify status: "FAILURE", description: "build failure", credentialsId: '143f2d77-e8ba-4fc3-85a9-edef0b717b8a', repo: "JenkinsDeploysToTomcatProject"
     }
   }
 }
