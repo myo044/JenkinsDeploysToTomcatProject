@@ -5,7 +5,7 @@ def tomcatContextPath = "/TomcatApp"
   void setBuildStatus(String message, String state) {
     step([
         $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "${githubUrl}"],
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/myo044/JenkinsDeploysToTomcatProject"],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "jenkins/build-status"],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
