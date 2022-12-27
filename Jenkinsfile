@@ -2,14 +2,6 @@ def githubUrl = "https://github.com/myo044/JenkinsDeploysToTomcatProject"
 def tomcatServerUrl = "http://192.168.43.151:8085"
 def tomcatCredentialsId = "8530a204-199e-4354-9ea2-3f03d805a168"
 def tomcatContextPath = "/TomcatApp"
-pipeline {
-  agent any
-  tools {
-    maven 'Maven3.8.6'
-  }
-  triggers{
-    pollSCM('* * * * *')
-  }
   void setBuildStatus(String message, String state) {
     step([
         $class: "GitHubCommitStatusSetter",
@@ -18,6 +10,14 @@ pipeline {
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
     ]);
+  }
+pipeline {
+  agent any
+  tools {
+    maven 'Maven3.8.6'
+  }
+  triggers{
+    pollSCM('* * * * *')
   }
   stages {
     stage ('Git') {
