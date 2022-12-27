@@ -6,6 +6,8 @@ pipeline {
   stages {
     stage ('Build') {
       steps {
+        git 'https://github.com/myo044/JenkinsDeploysToTomcatProject'
+
         sh 'mvn clean package'
       }
     }
