@@ -12,7 +12,6 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
-        throw null;
         try {
             writer.println("<h2>Hello from dev branch</h2>");
         } finally {

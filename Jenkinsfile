@@ -2,15 +2,6 @@ def githubUrl = "https://github.com/myo044/JenkinsDeploysToTomcatProject"
 def tomcatServerUrl = "http://192.168.0.200:8085"
 def tomcatCredentialsId = "8530a204-199e-4354-9ea2-3f03d805a168"
 def tomcatContextPath = "/TomcatApp"
-  void setBuildStatus(String message, String state) {
-    step([
-        $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/myo044/JenkinsDeploysToTomcatProject"],
-        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "jenkins/build-status"],
-        errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-        statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
-    ]);
-  }
 pipeline {
   agent any
   tools {
@@ -46,10 +37,10 @@ pipeline {
   }
   post{
     success{
-      setBuildStatus("Build succeeded", "SUCCESS")
+      githubNotify status: "SUCCESS", credentialsId: "143f2d77-e8ba-4fc3-85a9-edef0b717b8a", account: "jenkins", repo: "JenkinsDeploysToTomcatProject"
     }
     failure{
-      setBuildStatus("Build failed", "FAILURE")
+      githubNotify status: "FAILURE", credentialsId: "143f2d77-e8ba-4fc3-85a9-edef0b717b8a", account: "jenkins", repo: "JenkinsDeploysToTomcatProject"
     }
   }
 }
