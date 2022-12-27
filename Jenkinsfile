@@ -10,19 +10,25 @@ pipeline {
   stages {
     stage ('Git') {
       steps{
+        echo "Git step in process"
         git "${githubUrl}"
+        echo "Git step is finished"
       }
     }
     stage ('Build') {
       steps {
+        echo "Build in process"
         sh 'mvn clean package'
+        echo "Build is finished"
       }
     }
     stage ('Deploy') {
       steps {
+        echo "Deploying is in process"
         script {
           deploy adapters: [tomcat9(credentialsId: "${tomcatCredentialsId}", path: '', url: "${tomcatServerUrl}")], contextPath: "${tomcatContextPath}", onFailure: false, war: 'target/*.war'
         }
+        echo "Deploy is finished"
       }
     }
   }
